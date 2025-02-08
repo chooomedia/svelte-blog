@@ -28,7 +28,7 @@ const transformWordPressPost = (post: any) => {
 
 		categories,
 		id,
-		author: author[0].name,
+		author: author[0].name || 'Cannachris',
 		reading_time: getReadingTime(content.rendered)
 	};
 };
