@@ -1,16 +1,33 @@
-<input {...$$props} />
+<script>
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+</script>
 
-<!-- Path: src/components/Counter.svelte -->
-<style>
-	input {
-		box-sizing: border-box;
-		width: 100%;
-		max-width: 300px;
-		padding: 16px;
-		border: none;
-		border-radius: 16px;
-		font-size: 16px;
-		background-color: rgb(40, 60, 73);
-		color: rgb(207, 213, 221);
-	}
-</style>
+<input
+	{...$$props}
+	aria-label="Suche nach Blogartikel"
+	class="
+    w-full
+    h-14
+    py-2 px-4 
+   	rounded-full 
+   	text-base
+   	bg-surface-100/50
+   	dark:bg-surface-800
+   	text-surface-900
+   	dark:text-surface-100
+   	border-none 
+   	outline-none
+   	focus:ring-2 
+   	focus:ring-primary-500/50
+   	dark:focus:ring-primary-400/50
+   	transition-all 
+   	duration-300
+   	placeholder:text-surface-500
+   	dark:placeholder:text-surface-400
+   	hover:bg-surface-200
+   	dark:hover:bg-surface-700
+   	group
+   "
+	on:input
+/>

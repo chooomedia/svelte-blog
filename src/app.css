@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        font-size: 70%;
+
+        @media (max-width: 768px) {
+            font-size: 50%;
+        }
+    }
+
+    body {
+        @apply leading-normal;
+    }
+
+    a {
+        @apply text-2xl text-surface-400;
+    }
+
+    ul {
+        @apply list-none;
+    }
+
+    button {
+        @apply bg-transparent border-none outline-none cursor-pointer;
+    }
+
+    img {
+        @apply block max-w-full;
+    }
+
+    svg {
+        @apply fill-current;
+    }
+}
+
+@layer components {
+    .header__btn {
+        @apply relative py-2 text-gray-800 dark:text-gray-200 transition-colors duration-200;
+    }
+
+    .header__btn:hover {
+        @apply text-primary-500 dark:text-primary-300;
+    }
+
+    .header__btn__underline {
+        @apply absolute inset-x-0 bottom-0 h-[2px] bg-primary-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300;
+    }
+
+    .blog-content h1 {
+        @apply text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 leading-tight my-6;
+    }
+
+    .blog-content h2 {
+        @apply text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 leading-snug my-5;
+    }
+
+    .blog-content h3 {
+        @apply text-2xl md:text-3xl font-semibold text-gray-800 dark:text-gray-300 my-4;
+    }
+
+    .blog-content h4 {
+        @apply text-xl md:text-2xl font-medium text-gray-700 dark:text-gray-400 my-3;
+    }
+
+    .blog-content h5 {
+        @apply text-lg md:text-xl font-medium text-gray-600 dark:text-gray-400 my-3;
+    }
+
+    .blog-content h6 {
+        @apply text-base md:text-lg font-medium text-gray-500 dark:text-gray-400 my-2;
+    }
+
+    .blog-content p {
+        @apply text-xl leading-relaxed text-gray-800 dark:text-gray-300 my-5;
+    }
+
+    .blog-content ul {
+        @apply list-disc pl-6 space-y-2 my-5;
+    }
+
+    .blog-content ol {
+        @apply list-decimal pl-6 space-y-2 my-5;
+    }
+
+    .blog-content li {
+        @apply text-lg text-gray-800 dark:text-gray-300;
+    }
+
+    .blog-content blockquote {
+        @apply border-l-4 border-primary-500 pl-5 italic text-gray-700 dark:text-gray-300 my-6;
+    }
+
+    .blog-content strong {
+        @apply font-semibold text-gray-900 dark:text-gray-100;
+    }
+
+    .blog-content a {
+        @apply text-primary-600 dark:text-primary-400 underline hover:text-primary-500 dark:hover:text-primary-300 transition-colors;
+    }
+
+    .blog-content img {
+        @apply rounded-xl shadow-lg my-6;
+    }
+
+    .blog-content pre {
+        @apply bg-gray-900 text-gray-100 p-4 rounded-lg my-6 overflow-x-auto;
+    }
+
+    .blog-content code {
+        @apply bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 px-2 py-1 rounded-md;
+    }
+
+}

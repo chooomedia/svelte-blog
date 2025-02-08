@@ -15,6 +15,3 @@
 </script>
 
 <PostsContainer {posts} {loading} />
-
-<style>
-</style>

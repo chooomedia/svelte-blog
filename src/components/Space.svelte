@@ -6,7 +6,7 @@
 	<slot />
 </div>
 
-<style lang="scss">
+<style>
 	:global(.space) {
 		display: flex;
 		align-items: center;

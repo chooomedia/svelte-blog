@@ -28,7 +28,7 @@ const transformWordPressPost = (post: any) => {
 
 		categories,
 		id,
-		author: author[0].name,
+		author: author[0].name || 'Cannachris',
 		reading_time: getReadingTime(content.rendered)
 	};
 };
@@ -36,8 +36,8 @@ const transformWordPressPost = (post: any) => {
 // convert date to readable format
 export const formatDate = (date: string) => {
 	const newDate = new Date(date);
-	const options = { year: 'numeric', month: 'long', day: 'numeric' };
-	return newDate.toLocaleDateString('en-US', options);
+	const options = { year: 'numeric', month: 'short', day: 'numeric' };
+	return newDate.toLocaleDateString('de-DE', options);
 };
 
 // get reading time

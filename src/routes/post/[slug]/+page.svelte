@@ -5,12 +5,12 @@
 	import transformWordPressPost from '../../../utils/transformWordPressPost';
 
 	export let data: any;
+
+	const { post, categories } = data;
+	const transformedPost = transformWordPressPost(post);
 </script>
 
 <section in:fade={{ delay: 500, duration: 500 }} out:fade>
-	<PostHero post={transformWordPressPost(data)} />
-	<PostBody content={data?.content?.rendered} />
+	<PostHero post={transformedPost} {categories} />
+	<PostBody content={post?.content?.rendered} />
 </section>
-
-<style lang="scss">
-</style>
