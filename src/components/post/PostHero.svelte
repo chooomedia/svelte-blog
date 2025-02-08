@@ -61,7 +61,6 @@
                     text-primary-500
                     mt-4 mb-6
                     transition-colors duration-300
-                    hover:text-gray-700 dark:hover:text-gray-300
                 "
 			>
 				{@html post.title}
