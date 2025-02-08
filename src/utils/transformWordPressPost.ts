@@ -37,7 +37,7 @@ const transformWordPressPost = (post: any) => {
 export const formatDate = (date: string) => {
 	const newDate = new Date(date);
 	const options = { year: 'numeric', month: 'long', day: 'numeric' };
-	return newDate.toLocaleDateString('en-US', options);
+	return newDate.toLocaleDateString('de-DE', options);
 };
 
 // get reading time
