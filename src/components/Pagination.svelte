@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { afterNavigate } from '$app/navigation';
-
 	import ChevronLeft from './icons/ChevronLeft.svelte';
 	import ChevronRight from './icons/ChevronRight.svelte';
-	let currentPageVal: string | number | null = '1';
 
+	let currentPageVal: string | number | null = '1';
 	export let currentPage: number | string = 1;
+	export let totalPages: number = 5;
 
 	const getUrl = (currentPage: number) => {
 		return `/page/${currentPage}`;
@@ -16,67 +16,105 @@
 	});
 </script>
 
-<div>
-	{#if Number(currentPageVal) > 1}
-		<a href={getUrl(Number(currentPageVal) - 1)} class="btn-dir" aria-label="Go to previous page">
-			<button aria-label="Previous" disabled={Number(currentPageVal) === 1}>
-				<ChevronLeft />
-			</button>
-		</a>
-	{/if}
-	{#each [1, 2, 3, 4, 5] as page}
-		<a class={page === Number(currentPageVal) ? 'active' : ''} href={getUrl(page)}>
-			<button>{page}</button></a
-		>
-	{/each}
+<nav
+	class="
+        w-full 
+        flex justify-center items-center 
+        mt-16 md:mt-24 mb-20
+    "
+	role="navigation"
+	aria-label="Pagination"
+	itemscope
+	itemtype="https://schema.org/SiteNavigationElement"
+>
+	<div
+		class="
+        flex items-center 
+        gap-3 
+        bg-gray-100 dark:bg-surface-800/30
+        backdrop-blur-sm 
+        rounded-full
+        p-3
+        shadow-md
+    "
+	>
+		{#if Number(currentPageVal) > 1}
+			<a
+				href={getUrl(Number(currentPageVal) - 1)}
+				class="
+                    flex w-12 h-12
+                    pt-[3px]
+                    rounded-full 
+                    items-center 
+                    justify-center
+                    hover:bg-gray-300 dark:hover:bg-gray-700
+                    transition-colors 
+                    duration-300
+                    group
+                "
+				aria-label="Previous page"
+			>
+				<ChevronLeft
+					class="
+                        w-8 h-8
+                        text-gray-500 dark:text-gray-300 
+                        group-hover:text-primary-500 
+                        transition-colors 
+                        duration-300
+                    "
+				/>
+			</a>
+		{/if}
 
-	<a href={getUrl(Number(currentPageVal || 0) + 1)} class="btn-dir" aria-label="Go to next page">
-		<button aria-label="Next" disabled={Number(currentPageVal) === 5}><ChevronRight /></button>
-	</a>
-</div>
+		{#each { length: totalPages } as _, page}
+			<a
+				href={getUrl(page + 1)}
+				class="
+                    w-12 h-12
+                    pt-[3px]
+                    flex items-center 
+                    justify-center 
+                    rounded-full 
+                    text-lg 
+                    font-semibold
+                    transition-all 
+                    duration-300
+                    {page + 1 === Number(currentPageVal)
+					? 'bg-primary-500 text-white scale-110 shadow-lg'
+					: 'text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'}
+                "
+				aria-label={`Go to page ${page + 1}`}
+				aria-current={page + 1 === Number(currentPageVal) ? 'page' : undefined}
+			>
+				{page + 1}
+			</a>
+		{/each}
 
-<style lang="scss">
-	div {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin-top: 100px;
-		gap: 20px;
-	}
-
-	button {
-		text-align: center;
-		vertical-align: middle;
-		white-space: nowrap;
-		user-select: none;
-		font-size: 18px;
-		color: rgb(100, 116, 139);
-		background: none;
-		outline: none;
-		border: none;
-	}
-
-	.active {
-		button {
-			color: #fff;
-		}
-	}
-
-	.btn-dir {
-		display: flex;
-		width: 30px;
-		height: 30px;
-		border-radius: 50%;
-		align-items: center;
-		justify-content: center;
-		padding: 8px;
-		background-color: rgb(115, 206, 207);
-		text-decoration: none;
-		cursor: pointer;
-
-		button {
-			font-size: 1rem;
-			display: flex;
-		}
-	}
-</style>
+		{#if Number(currentPageVal) < totalPages}
+			<a
+				href={getUrl(Number(currentPageVal || 0) + 1)}
+				class="
+                    flex w-12 h-12 
+                    rounded-full 
+                    items-center 
+                    justify-center 
+                    hover:bg-gray-300 dark:hover:bg-gray-700
+                    transition-colors 
+                    duration-300
+                    group
+                "
+				aria-label="Next page"
+			>
+				<ChevronRight
+					class="
+                        w-8 h-8
+                        text-gray-500 dark:text-gray-300 
+                        group-hover:text-primary-500 
+                        transition-colors 
+                        duration-300
+                    "
+				/>
+			</a>
+		{/if}
+	</div>
+</nav>

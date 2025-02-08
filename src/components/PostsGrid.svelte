@@ -8,27 +8,44 @@
 	export let currentPage: number | string = 1;
 </script>
 
-<title>Blog</title>
+<svelte:head>
+	<title>Blog</title>
+</svelte:head>
 
-<section>
+<section
+	class="
+        grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))]
+        auto-rows-[minmax(400px,1fr)]
+        gap-10
+        mt-[100px]
+        min-h-[50vh]
+    "
+	itemscope
+	itemtype="https://schema.org/Blog"
+>
 	{#each posts as post, index}
-		<Card {post} {index} />
+		<article itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+			<Card {post} {index} />
+		</article>
 	{/each}
 </section>
 
 {#if loading}
-	<p>Loading...</p>
+	<div class="flex justify-center items-center py-8">
+		<div
+			class="
+            animate-pulse 
+            text-3xl
+            text-primary-500
+            flex items-center gap-2
+        "
+		>
+			<div class="w-2 h-2 bg-current rounded-full animate-bounce" />
+			<div class="w-2 h-2 bg-current rounded-full animate-bounce [animation-delay:0.2s]" />
+			<div class="w-2 h-2 bg-current rounded-full animate-bounce [animation-delay:0.4s]" />
+			<span class="ml-2">Loading</span>
+		</div>
+	</div>
 {/if}
 
 <Pagination {currentPage} />
-
-<style>
-	section {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		grid-template-rows: repeat(auto-fit, minmax(400px, 1fr));
-		grid-gap: 16px;
-		margin-top: 100px;
-		min-height: 50vh;
-	}
-</style>

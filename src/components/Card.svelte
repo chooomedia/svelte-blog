@@ -15,161 +15,171 @@
 		const categoryId = post.categories[0];
 		let res = await fetch(`${PUBLIC_BLOG_URL}/categories/${categoryId}`);
 		const category = await res.json();
-
-		categoryName = category.name;
-
-		// break at 10th character
-		categoryName = categoryName.length > 15 ? `${categoryName.substring(0, 15)}...` : categoryName;
+		categoryName =
+			category.name.length > 15 ? `${category.name.substring(0, 15)}...` : category.name;
 	});
 </script>
 
 <a
-	class="post-card"
+	class="group h-full no-underline block"
 	href={`/post/${post.slug}`}
 	in:fade={{ delay: (index + 1) * 300 }}
 	aria-label={post.title}
+	itemscope
+	itemtype="https://schema.org/BlogPosting"
 >
-	<div class="post-card__content">
-		<div class="post-card__image-wrapper">
-			<img src={post.featured_media} alt={post.title} loading="lazy" />
+	<div
+		class="
+            relative 
+            flex flex-col 
+            h-full 
+            bg-surface-100/50 dark:bg-surface-800/30 
+            cursor-pointer 
+            gap-4 
+            p-5 
+            rounded-3xl 
+            border-[1px]
+          border-surface-100/30
+            dark:border-surface-800/60
+            transition-all 
+            duration-400 
+            ease-in-out
+            shadow-md
+            group-hover:shadow-lg
+            group-odd:group-hover:border-primary-500 
+            group-even:group-hover:border-accent-500 
+        "
+	>
+		<!-- Featured Image -->
+		<div
+			class="
+                relative 
+                h-[240px] 
+                overflow-hidden 
+                transform-gpu 
+                transition-transform 
+                duration-400 
+                ease-out 
+                origin-bottom 
+                group-hover:scale-[1.05]
+                rounded-2xl
+            "
+		>
+			<img
+				src={post.featured_media}
+				alt={post.title}
+				loading="lazy"
+				class="
+                    w-full 
+                    h-full 
+                    object-cover 
+                    rounded-2xl 
+                    border-[1px]
+                    border-primary-500
+                    transition-transform 
+                    duration-400
+                    group-hover:scale-110
+                "
+				itemprop="image"
+			/>
+			<div
+				class="
+                    absolute 
+                    inset-0 
+                    rounded-2xl 
+                    bg-primary-500 
+                    opacity-20 
+                    transition-opacity 
+                    duration-300 
+                    ease-out 
+                    group-hover:opacity-0
+                "
+			/>
 		</div>
-		<div>
-			<h2>
+
+		<!-- Post Title & Author -->
+		<div class="flex-grow">
+			<h2
+				class="
+                    text-3xl 
+                    font-semibold 
+                    text-primary-500 dark:text-gray-200
+                    line-clamp-2 
+                    mb-3 
+                    transition-colors 
+                    duration-300
+                "
+				itemprop="headline"
+			>
 				{@html htmlCodeToSymbol(postTitle)}
 			</h2>
-			<div class="post-card__author">
+			<div
+				class="
+                    text-sm 
+                    text-gray-600 dark:text-gray-400
+                    transition-colors 
+                    duration-300
+                "
+				itemprop="author"
+			>
 				von {post.author}
 			</div>
 		</div>
-		<div class="post-card__info">
-			<div class="post-card__info__category">
+
+		<!-- Post Info: Category | Date | Read Time -->
+		<div
+			class="
+                flex 
+                justify-between 
+                border-t 
+                border-gray-300 dark:border-gray-700 
+                -mx-5 
+                -mb-5 
+                mt-4 
+                text-sm 
+                text-gray-600 dark:text-gray-400
+            "
+		>
+			<div
+				class="
+                    p-4 
+                    flex-1 
+                    text-center 
+                    group-odd:text-primary-500 
+                    group-even:text-accent-500
+                    transition-colors 
+                    duration-300
+                "
+				itemprop="articleSection"
+			>
 				{@html categoryName}
 			</div>
-			<div class="post-card__info__date">
+			<div
+				class="
+                    p-4 
+                    flex-1 
+                    text-center 
+                    border-x 
+                    border-gray-300 dark:border-gray-700
+                    transition-colors 
+                    duration-300
+                "
+				itemprop="datePublished"
+			>
 				{post.date}
 			</div>
-			<div class="post-card__info__length">
-				{post.reading_time} min read
+			<div
+				class="
+                    p-4 
+                    flex-1 
+                    text-center
+                    transition-colors 
+                    duration-300
+                "
+				itemprop="timeRequired"
+			>
+				{post.reading_time} min Lesezeit
 			</div>
 		</div>
 	</div>
 </a>
-
-<style lang="scss">
-	h2 {
-		margin-top: 16px;
-		font-size: 2.2rem;
-	}
-	.post-card {
-		height: 100%;
-		text-decoration: none;
-
-		&__content {
-			position: relative;
-			display: flex;
-			flex-direction: column;
-			box-sizing: border-box;
-			height: 100%;
-			background-color: rgb(16, 24, 29);
-			cursor: pointer;
-			gap: 12px;
-			padding: 8px;
-			border-radius: 20px;
-			border-width: 2px;
-			border-style: solid;
-			border-color: transparent;
-			border-image: initial;
-			transition: border 350ms ease 100ms, background-color 200ms ease;
-
-			&:hover {
-				background-color: rgb(23, 36, 44);
-				.post-card__image-wrapper {
-					transform: scale3d(1.05336, 1.05336, 1);
-
-					&::after {
-						opacity: 0;
-					}
-				}
-			}
-		}
-
-		&__image-wrapper {
-			position: relative;
-			height: 220px;
-			transition: transform 350ms ease 0s;
-			transform-origin: 50% 100%;
-
-			img {
-				box-sizing: border-box;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				border-radius: 17px;
-			}
-			&::after {
-				content: ' ';
-				position: absolute;
-				inset: 0px;
-				border-radius: 17px;
-				background-color: rgb(199, 99, 88);
-				opacity: 0.2;
-				transition: opacity 350ms ease 0s;
-			}
-		}
-
-		&:nth-child(odd) {
-			.post-card {
-				&__content:hover {
-					border: 2px solid rgb(199, 99, 88);
-				}
-
-				&__image-wrapper img {
-					border: 2px solid rgb(199, 99, 88);
-				}
-				&__info__category {
-					color: rgb(199, 99, 88);
-				}
-			}
-		}
-
-		&:nth-child(even) {
-			.post-card {
-				&__content:hover {
-					border: 2px solid rgb(237, 173, 104);
-				}
-				&__image-wrapper img {
-					border: 2px solid rgb(237, 173, 104);
-				}
-				&__info__category {
-					color: rgb(237, 173, 104);
-				}
-			}
-		}
-
-		&__author {
-			font-size: 1.3rem;
-			color: rgb(100, 116, 139);
-			margin-top: 15px;
-		}
-
-		&__info {
-			font-size: 1.2rem;
-			color: rgb(100, 116, 139);
-			display: flex;
-			justify-content: space-between;
-			border-top: 1px solid rgb(31, 48, 58);
-			margin: auto -12px -8px;
-
-			& > * {
-				padding: 1.6rem 1.2rem;
-				flex: 1 1 0%;
-				text-align: center;
-
-				&:nth-child(2) {
-					border-left: 1px solid rgb(31, 48, 58);
-					border-right: 1px solid rgb(31, 48, 58);
-				}
-			}
-		}
-	}
-</style>

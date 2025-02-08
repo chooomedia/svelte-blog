@@ -36,7 +36,7 @@ const transformWordPressPost = (post: any) => {
 // convert date to readable format
 export const formatDate = (date: string) => {
 	const newDate = new Date(date);
-	const options = { year: 'numeric', month: 'long', day: 'numeric' };
+	const options = { year: 'numeric', month: 'short', day: 'numeric' };
 	return newDate.toLocaleDateString('de-DE', options);
 };
 

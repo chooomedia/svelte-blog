@@ -11,6 +11,6 @@
 </script>
 
 <Container>
-	<Input placeholder="Search..." on:change={(e) => console.log(e.detail)} />
+	<Input placeholder="Suchen..." on:change={(e) => console.log(e.detail)} />
 	<PostsGrid {posts} {loading} {currentPage} />
 </Container>
