@@ -1,4 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="11" height="18" viewBox="0 0 11 18" fill="none">
+<script>
+	export let className = '';
+</script>
+
+<svg
+	class={className}
+	xmlns="http://www.w3.org/2000/svg"
+	width="11"
+	height="18"
+	viewBox="0 0 11 18"
+	fill="none"
+>
 	<path
 		fill-rule="evenodd"
 		clip-rule="evenodd"

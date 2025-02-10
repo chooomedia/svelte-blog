@@ -36,10 +36,10 @@
 				alt={post.title}
 				loading="lazy"
 				class="
-                    w-full 
-                    h-[240px] sm:h-[440px] 
-                    object-cover 
-                    rounded-2xl 
+                    w-full
+                    h-[240px] sm:h-[440px]
+                    object-cover
+                    rounded-2xl
                     border-[1px]
                     border-primary-700
                     transition-transform duration-300
@@ -51,35 +51,37 @@
 
 		<!-- Post Details -->
 		<div class="flex-[2_1_0%]">
-			<p class="text-sm text-primary-500 mb-2 uppercase tracking-wide">
+			<p
+				class="bg-primary-100/20 py-2 px-4 inline rounded-full text-sm text-primary-500 dark:text-surface-100/60 uppercase tracking-wide"
+			>
 				{getCategoryName(categoryId)}
 			</p>
 
 			<h1
 				class="
-                    text-5xl font-bold 
+                    text-5xl font-bold
                     text-primary-500
-                    mt-4 mb-6
+                    mt-8 mb-6
                     transition-colors duration-300
                 "
 			>
 				{@html post.title}
 			</h1>
 
-			<p class="mb-5 text-gray-600 dark:text-gray-400">
-				by {post.author}
+			<p class="text-xl mb-5 text-gray-600 dark:text-gray-400">
+				von {post.author}
 			</p>
 
 			<Space gap={30}>
 				<Space gap={4}>
-					<CalendarIcon class="text-primary-500" />
-					<p class="text-sm text-gray-600 dark:text-gray-400">
+					<CalendarIcon className="text-primary-500" />
+					<p class="text-xl text-gray-600 dark:text-gray-400">
 						{post.date}
 					</p>
 				</Space>
 				<Space gap={4}>
-					<StopwatchIcon class="text-primary-500" />
-					<p class="text-sm text-gray-600 dark:text-gray-400">
+					<StopwatchIcon className="text-primary-500" />
+					<p class="text-xl text-gray-600 dark:text-gray-400">
 						{post.reading_time} min Lesezeit
 					</p>
 				</Space>

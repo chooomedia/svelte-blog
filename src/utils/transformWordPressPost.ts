@@ -5,30 +5,30 @@ const transformWordPressPost = (post: any) => {
 		title,
 		content,
 		excerpt,
-		date,
-		modified,
+		date_gmt,
+		modified_gmt,
 		slug,
-		featured_media,
 		categories,
 		id,
+		featured_media,
 		better_featured_image,
 		_embedded
 	} = post;
 
-	const { author } = _embedded;
+	const author = _embedded?.author?.[0]?.name || 'Cannachris';
 
 	return {
+		id,
 		title: convertUnicodeTOString(title.rendered),
 		content: content.rendered,
 		excerpt: excerpt.rendered,
-		date: formatDate(date),
-		modified,
+		date: formatDate(date_gmt), // Unveränderte GMT-Zeit für Google
+		modified: modified_gmt || date_gmt,
 		slug,
+		link: post.link,
 		featured_media: better_featured_image?.source_url || featured_media,
-
 		categories,
-		id,
-		author: author[0].name || 'Cannachris',
+		author: author,
 		reading_time: getReadingTime(content.rendered)
 	};
 };

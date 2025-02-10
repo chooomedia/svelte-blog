@@ -3,7 +3,7 @@
 	export let fillViewport: boolean = false;
 
 	const classes = () => {
-		const classList = [`container${$$props.class ? ' ' + $$props.class : ''}`];
+		const classList = [`${$$props.class ? ' ' + $$props.class : ''}`];
 
 		if (fillViewport) {
 			classList.push('container--fill-viewport');

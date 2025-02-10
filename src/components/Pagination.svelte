@@ -18,8 +18,8 @@
 
 <nav
 	class="
-        w-full 
-        flex justify-center items-center 
+        w-full
+        flex justify-center items-center
         mt-16 md:mt-24 mb-20
     "
 	role="navigation"
@@ -29,10 +29,10 @@
 >
 	<div
 		class="
-        flex items-center 
-        gap-3 
+        flex items-center
+        gap-3
         bg-gray-100 dark:bg-surface-800/30
-        backdrop-blur-sm 
+        backdrop-blur-sm
         rounded-full
         p-3
         shadow-md
@@ -44,18 +44,18 @@
 				class="
                     flex w-12 h-12
                     pt-[3px]
-                    rounded-full 
-                    items-center 
+                    rounded-full
+                    items-center
                     justify-center
                     hover:bg-gray-300 dark:hover:bg-gray-700
-                    transition-colors 
+                    transition-colors
                     duration-300
                     group
                 "
 				aria-label="Previous page"
 			>
 				<ChevronLeft
-					class="
+					className="
                         w-8 h-8
                         text-gray-500 dark:text-gray-300 
                         group-hover:text-primary-500 
@@ -72,12 +72,12 @@
 				class="
                     w-12 h-12
                     pt-[3px]
-                    flex items-center 
-                    justify-center 
-                    rounded-full 
-                    text-lg 
+                    flex items-center
+                    justify-center
+                    rounded-full
+                    text-lg
                     font-semibold
-                    transition-all 
+                    transition-all
                     duration-300
                     {page + 1 === Number(currentPageVal)
 					? 'bg-primary-500 text-white scale-110 shadow-lg'
@@ -94,19 +94,19 @@
 			<a
 				href={getUrl(Number(currentPageVal || 0) + 1)}
 				class="
-                    flex w-12 h-12 
-                    rounded-full 
-                    items-center 
-                    justify-center 
+                    flex w-12 h-12
+                    rounded-full
+                    items-center
+                    justify-center
                     hover:bg-gray-300 dark:hover:bg-gray-700
-                    transition-colors 
+                    transition-colors
                     duration-300
                     group
                 "
 				aria-label="Next page"
 			>
 				<ChevronRight
-					class="
+					className="
                         w-8 h-8
                         text-gray-500 dark:text-gray-300 
                         group-hover:text-primary-500 
