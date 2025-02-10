@@ -6,7 +6,7 @@
 	export let posts: Post[] = [];
 	export let loading = false;
 
-	export let currentPage: number | string = 1;
+	export let currentPage: number = 1;
 </script>
 
 <Container>

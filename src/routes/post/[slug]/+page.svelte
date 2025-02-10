@@ -10,7 +10,7 @@
 	const transformedPost = transformWordPressPost(post);
 </script>
 
-<section in:fade={{ delay: 500, duration: 500 }} out:fade>
+<section class="pt-16 px-4 md:px-8" in:fade={{ delay: 500, duration: 500 }} out:fade>
 	<PostHero post={transformedPost} {categories} />
 	<PostBody content={post?.content?.rendered} />
 </section>

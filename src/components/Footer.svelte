@@ -122,7 +122,10 @@
 							</a>
 						</li>
 						<li>
-							<a href="/datenschutz" class="flex items-center gap-2 hover:text-primary-500">
+							<a
+								href="/datenschutzerklaerung"
+								class="flex items-center gap-2 hover:text-primary-500"
+							>
 								🔒 <span>Datenschutz</span>
 							</a>
 						</li>

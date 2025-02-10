@@ -39,6 +39,7 @@
                     w-full
                     h-[240px] sm:h-[440px]
                     object-cover
+                    object-top
                     rounded-2xl
                     border-[1px]
                     border-primary-700

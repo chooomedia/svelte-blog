@@ -1,15 +1,15 @@
 import { PUBLIC_BLOG_URL } from '$env/static/public';
-import transformWordPressPost from './transformWordPressPost';
+import transformWordPressPage from './transformWordPressPage';
 
-const fetchPosts = async (page: number = 1) => {
+const fetchPages = async (page: number) => {
 	const response = await fetch(`${PUBLIC_BLOG_URL}/posts?_embed&page=${page}&per_page=9`);
 
 	if (!response.ok) {
 		throw new Error(`Fehler beim Laden des Artikels (Artikels ${page}): ${response.statusText}`);
 	}
 
-	const posts = await response.json();
-	return posts.map(transformWordPressPost);
+	const pages = await response.json();
+	return pages.map(transformWordPressPage);
 };
 
-export default fetchPosts;
+export default fetchPages;

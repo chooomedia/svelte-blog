@@ -5,40 +5,11 @@
 
 	export let posts: Post[] = [];
 	export let loading = false;
-	export let currentPage: number | string = 1;
+	export let currentPage: number = 1;
 </script>
 
 <svelte:head>
-	<title>Blog - Deine Seite</title>
-	<script type="application/ld+json">
-		{JSON.stringify({
-			"@context": "https://schema.org",
-			"@type": "Blog",
-			"blogPost": posts.map(post => ({
-				"@type": "BlogPosting",
-				"headline": post.title,
-				"image": post.image, // Falls es ein Bild gibt
-				"author": {
-					"@type": "Person",
-					"name": post.author
-				},
-				"datePublished": post.datePublished,
-				"dateModified": post.dateModified || post.datePublished,
-				"mainEntityOfPage": {
-					"@type": "WebPage",
-					"@id": post.url
-				},
-				"publisher": {
-					"@type": "Organization",
-					"name": "Deine Website",
-					"logo": {
-						"@type": "ImageObject",
-						"url": "https://deine-website.com/logo.png"
-					}
-				}
-			}))
-		}, null, 2)}
-	</script>
+	<title>Blog</title>
 </svelte:head>
 
 <section

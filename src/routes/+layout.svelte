@@ -4,8 +4,18 @@
 	import { fade } from 'svelte/transition';
 	import Footer from '../components/Footer.svelte';
 	import '../app.css';
+	import Seo from '$lib/seo/seo.svelte';
 
 	let isDarkMode = false;
+
+	export let data: {
+		pageData?: any;
+		postData?: any;
+		blogPosts?: any;
+		seoData: any;
+		isHomepage: boolean;
+		isPostPage: boolean;
+	};
 
 	function toggleDarkMode() {
 		isDarkMode = !isDarkMode;
@@ -18,18 +28,12 @@
 
 	<main
 		class="
-        w-full
-        md:w-full
-        2xl:max-w-[1080px]
-        mx-auto
-        px-4
-        pt-24
-        md:pt-16
-      "
+            w-full
+            md:w-full
+            2xl:max-w-[1080px]
+            mx-auto
+          "
 		in:fade={{ delay: 100 }}
-		itemscope
-		itemtype="https://schema.org/WebPageElement"
-		itemprop="mainContentOfPage"
 	>
 		<slot />
 	</main>

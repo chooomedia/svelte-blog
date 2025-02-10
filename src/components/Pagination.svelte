@@ -4,7 +4,7 @@
 	import ChevronRight from './icons/ChevronRight.svelte';
 
 	let currentPageVal: string | number | null = '1';
-	export let currentPage: number | string = 1;
+	export let currentPage: number = 1;
 	export let totalPages: number = 5;
 
 	const getUrl = (currentPage: number) => {
