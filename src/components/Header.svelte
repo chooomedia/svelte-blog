@@ -24,7 +24,7 @@
 >
 	<div
 		class="
-        2xl:max-w-[1080px]
+        2xl:max-w-[1140px]
 		mx-auto px-4
 		h-24
 		flex items-center justify-between"

@@ -1,69 +1,77 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { MetaTags } from 'svelte-meta-tags';
 	import { JsonLd } from 'svelte-meta-tags';
 	import { config } from '../cannacoding.config';
-	//import { type ProductWithVariants } from '$lib/server/database/productService';
+	import fetchPageBySlug from '../../utils/fetchPageBySlug';
 
-	// Props für SEO-Daten
-	export let pageName: string = '';
-	export let description: string = '';
+	export let pageName: string = 'Fallback Titel';
+	export let description: string = 'Fallback Beschreibung';
 	export let keywords: string[] = [];
 	export let imgUrl: string = '';
 	export let imgAlt: string = '';
-	//export let products?: ProductWithVariants;
 
-	/*function buildOffersSEO() {
-		if (!products) return null;
-		const offers = [];
+	if (typeof keywords === 'string') {
+		keywords = keywords.split(',');
+	} else if (!Array.isArray(keywords)) {
+		keywords = [];
+	}
 
-		for (let product of products) {
-			for (let variant of product.variants) {
-				const newOffer = {
-					'@type': 'Offer',
-					priceSpecification: {
-						'@type': 'UnitPriceSpecification',
-						name: product.name,
-						url: config.appUrl,
-						price: variant.price,
-						priceCurrency: 'USD',
-						referenceQuantity: {
-							'@type': 'QuantitativeValue',
-							value: '1',
-							unitCode: variant.billingPeriod === 'monthly' ? 'MON' : 'ANN'
-						}
-					}
-				};
-				offers.push(newOffer);
-			}
-		}
-
-		return {
-			'@type': 'AggregateOffer',
-			offers: offers
-		};
-	}*/
+	let metaData: any = {};
 
 	function buildOpenGraphImage() {
-		if (!imgUrl) return null;
+		if (!imgUrl)
+			return [
+				{
+					url: config.defaultSeoImageUrl,
+					alt: config.appDescription,
+					width: 1200,
+					height: 630,
+					secureUrl: config.defaultSeoImageUrl,
+					type: 'image/jpeg'
+				}
+			];
 
 		return [
 			{
 				url: imgUrl,
-				alt: imgAlt ?? '',
-				width: 800,
-				height: 600,
+				alt: imgAlt || '',
+				width: 1200,
+				height: 630,
 				secureUrl: imgUrl,
 				type: 'image/jpeg'
 			}
 		];
 	}
+
+	onMount(async () => {
+		try {
+			const pageData = await fetchPageBySlug(pageName ? pageName.toLowerCase() : undefined);
+
+			if (pageData) {
+				pageName = pageData.title?.rendered || pageName;
+				description = pageData.meta?.rank_math_description || config.appDescription;
+
+				// RankMath SEO-Keywords aus den Meta-Daten extrahieren
+				const metaKeywords = pageData.meta?.rank_math_focus_keyword;
+				keywords = Array.isArray(metaKeywords) ? metaKeywords : metaKeywords?.split(',') || [];
+
+				imgUrl = pageData.featured_media
+					? pageData._embedded['wp:featuredmedia'][0]?.source_url
+					: '';
+				imgAlt = pageData.featured_media ? pageData._embedded['wp:featuredmedia'][0]?.alt_text : '';
+			}
+		} catch (error) {
+			console.error('Fehler beim Abrufen der Meta-Daten:', error);
+		}
+	});
 </script>
 
 <MetaTags
 	title={config.appName + (pageName ? ' | ' + pageName : '')}
 	description={description || config.appDescription}
 	canonical={config.appUrl + (pageName ? '/' + pageName : '')}
-	keywords={[...config.appKeywords, ...(keywords || [])]}
+	keywords={keywords || config.keywords}
 	openGraph={{
 		type: 'website',
 		url: config.appUrl,
@@ -71,29 +79,8 @@
 		title: pageName,
 		description: description,
 		siteName: config.appName,
-		images: buildOpenGraphImage() || [
-			{
-				url: config.defaultSeoImageUrl,
-				alt: config.appDescription,
-				width: 800,
-				height: 600,
-				secureUrl: config.defaultSeoImageUrl,
-				type: 'image/jpeg'
-			}
-		]
+		images: buildOpenGraphImage()
 	}}
-	facebook={config.seoFacebookAppId ? { appId: config.seoFacebookAppId } : undefined}
-	twitter={config.seoTwitterCreator
-		? {
-				creator: config.seoTwitterCreator,
-				site: '@site',
-				cardType: 'summary_large_image',
-				title: pageName,
-				description: description,
-				image: config.seoTwitterImage,
-				imageAlt: config.seoTwitterAlt
-			}
-		: undefined}
 />
 
 <JsonLd

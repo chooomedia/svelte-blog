@@ -7,8 +7,8 @@ export const config = Object.freeze({
 	// ------------------ APP INFORMATION ------------------------
 	appName: 'Cannachris Website',
 	appDescription: 'Webseite für Cannabis Aktivismus, Persönliche Story, Tipps und News',
-	appUrl: 'https://www.cannachris.de/cc',
-	appKeywords: ['WordPress', 'API', 'Svelte', 'netlify'], // Primarily used for SEO, these are included in the meta tags of every page, alongside any you add manually in +page.server.ts.
+	appUrl: 'https://www.cannachris.de',
+	appKeywords: [], // Primarily used for SEO, these are included in the meta tags of every page, alongside any you add manually in +page.server.ts.
 	appCategory: 'website',
 	appOS: 'Web, Android, IOS',
 	// ------------------ OWNER INFORMATION ------------------------

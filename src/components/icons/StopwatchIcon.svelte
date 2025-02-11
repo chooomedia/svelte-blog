@@ -1,8 +1,17 @@
 <script>
 	export let className = '';
+	export let title = '';
 </script>
 
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+<svg
+	class={className}
+	xmlns="http://www.w3.org/2000/svg"
+	width="18"
+	height="18"
+	viewBox="0 0 18 18"
+	fill="none"
+>
+	<title>{title}</title>
 	<path
 		fill-rule="evenodd"
 		clip-rule="evenodd"

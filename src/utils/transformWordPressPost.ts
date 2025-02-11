@@ -12,24 +12,34 @@ const transformWordPressPost = (post: any) => {
 		id,
 		featured_media,
 		better_featured_image,
-		_embedded
+		_embedded,
+		meta
 	} = post;
 
 	const author = _embedded?.author?.[0]?.name || 'Cannachris';
+	const metaDescription = meta?.rank_math_description || excerpt?.rendered || '';
+	const keywords = meta?.rank_math_focus_keyword
+		? meta.rank_math_focus_keyword
+				.split(',')
+				.map((k: string) => k.trim())
+				.filter(Boolean)
+		: [];
 
 	return {
 		id,
 		title: convertUnicodeTOString(title.rendered),
 		content: content.rendered,
 		excerpt: excerpt.rendered,
-		date: formatDate(date_gmt), // Unveränderte GMT-Zeit für Google
+		meta_description: metaDescription,
+		date: formatDate(date_gmt),
 		modified: modified_gmt || date_gmt,
 		slug,
 		link: post.link,
 		featured_media: better_featured_image?.source_url || featured_media,
 		categories,
 		author: author,
-		reading_time: getReadingTime(content.rendered)
+		reading_time: getReadingTime(content.rendered),
+		keywords: keywords
 	};
 };
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PostsContainer from '../../components/PostsContainer.svelte';
-	import type { Post, BlogPageData } from '../../types/posts.js';
+	import type { Post, BlogPageData } from '../../types/posts.ts';
 	import { afterNavigate } from '$app/navigation';
 	import fetchPosts from '../../utils/fetchPosts.js';
 	import { config } from '$lib/cannacoding.config';
@@ -11,7 +11,7 @@
 	export async function load(event: RequestEvent) {
 		return {
 			// For meta tags
-			pageName: 'Blog',
+			pageName: data.posts.title.rendered,
 			description: config.appDescription
 		};
 	}

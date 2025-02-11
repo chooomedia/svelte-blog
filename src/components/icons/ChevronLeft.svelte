@@ -1,5 +1,6 @@
 <script>
 	export let className = '';
+	export let title = '';
 </script>
 
 <svg
@@ -10,6 +11,7 @@
 	viewBox="0 0 11 18"
 	fill="none"
 >
+	<title>{title}</title>
 	<path
 		fill-rule="evenodd"
 		clip-rule="evenodd"

@@ -68,6 +68,7 @@
 			<img
 				src={post.featured_media}
 				alt={post.title}
+				title={post.meta_description}
 				loading="lazy"
 				class="
                     w-full

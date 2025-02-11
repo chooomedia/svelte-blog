@@ -11,21 +11,21 @@
 </script>
 
 <div
-	class="relative w-full h-[75vh] sm:h-[60vh] bg-cover bg-center flex items-center justify-center text-white text-center px-6"
-	style="background-image: url({backgroundImage}); background-size: contain;"
+	class="relative w-full h-[75vh] sm:h-[60vh] bg-cover bg-center flex items-center justify-center text-white text-center px-6 rounded-3xl mt-10 overflow-hidden"
+	style="background-image: url({backgroundImage}); background-size: 320px;"
 	in:fade={{ duration: 500 }}
 >
 	<!-- Weicher Gradient Overlay für bessere Lesbarkeit -->
-	<div class="absolute inset-0 bg-gradient-to-b from-black/60 to-black/20"></div>
+	<div class="absolute inset-0 bg-gradient-to-b from-surface-300/60 to--surface-300/20"></div>
 
 	<!-- Content Box -->
 	<div
 		class="relative z-10 max-w-3xl p-6 sm:p-10 bg-black/50 rounded-2xl shadow-lg backdrop-blur-md transform scale-95 hover:scale-100 transition-all duration-500"
 	>
 		<h1 class="text-5xl sm:text-6xl font-extrabold tracking-tight">{page.title}</h1>
-		{#if page.excerpt}
+		{#if page.meta_description}
 			<p class="text-lg sm:text-xl mt-4 opacity-90">
-				{@html page.excerpt}
+				{@html page.meta_description}
 			</p>
 		{/if}
 	</div>

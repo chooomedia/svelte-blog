@@ -15,8 +15,13 @@ const transformWordPressPage = (page: any) => {
 	} = page;
 
 	// Fallback für fehlende SEO-Metadaten
-	const metaDescription = meta?.meta_description || excerpt?.rendered || '';
-	const keywords = meta?.keywords || [];
+	const metaDescription = meta?.rank_math_description || excerpt?.rendered || '';
+	const keywords = meta?.rank_math_focus_keyword
+		? meta.rank_math_focus_keyword
+				.split(',')
+				.map((k: string) => k.trim())
+				.filter(Boolean)
+		: [];
 	const featuredImage =
 		better_featured_image?.source_url || _embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
 

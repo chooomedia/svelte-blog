@@ -1,37 +1,39 @@
 <script lang="ts">
-	import { cubicOut } from 'svelte/easing';
-	import { crossfade } from 'svelte/transition';
 	import { onMount, onDestroy } from 'svelte';
 
-	export let posts: any[];
-	export let speed = 50; // Geschwindigkeit in px/sec
-	export let pauseOnHover = true; // Soll sich die Geschwindigkeit verringern?
+	export let posts: any[] = [];
+	export let speed = 50; // px pro Sekunde
+	export let pauseOnHover = true;
 
-	let ticker: HTMLElement;
+	let tickerContainer: HTMLElement | null = null;
+	let tickerTrack: HTMLElement | null = null;
 	let animationFrame: number | null = null;
 	let position = 0;
-
-	// Geschwindigkeit für Animationen
 	let currentSpeed = speed;
-	const slowSpeed = speed / 4;
+	const slowSpeed = speed / 3; // Sanftes Verlangsamen bei Hover
 
-	// Svelte Transition für sanfte Crossfade-Effekte
-	const [send, receive] = crossfade({ duration: 500, easing: cubicOut });
-
-	// Funktion für endloses Scrollen
 	function animate() {
-		position -= currentSpeed / 60;
-		ticker.style.transform = `translateX(${position}px)`;
+		if (!tickerTrack || !tickerContainer) return;
 
-		// Falls der Ticker das Ende erreicht, springe zurück
-		if (Math.abs(position) >= ticker.scrollWidth / 2) {
-			position = 0;
+		position -= currentSpeed / 60;
+		tickerTrack.style.transform = `translateX(${position}px)`;
+
+		// Falls der erste Eintrag vollständig aus dem Viewport ist, zurücksetzen
+		const firstChild = tickerTrack.firstElementChild as HTMLElement;
+		if (firstChild && position <= -firstChild.offsetWidth) {
+			position += firstChild.offsetWidth;
+			tickerTrack.appendChild(firstChild);
 		}
 
 		animationFrame = requestAnimationFrame(animate);
 	}
 
 	onMount(() => {
+		if (!tickerTrack || !tickerContainer) return;
+
+		// Initiale Duplizierung, um nahtloses Scrollen zu ermöglichen
+		tickerTrack.innerHTML += tickerTrack.innerHTML;
+
 		animationFrame = requestAnimationFrame(animate);
 	});
 
@@ -44,28 +46,30 @@
 
 <!-- Newsticker Container -->
 <div
-	class="w-full overflow-hidden whitespace-nowrap bg-primary-500 py-8"
+	class="w-full overflow-hidden bg-primary-500 py-8 relative"
 	role="marquee"
 	aria-live="off"
+	on:mouseenter={() => (currentSpeed = slowSpeed)}
+	on:mouseleave={() => (currentSpeed = speed)}
 >
 	<h2 class="sr-only">Aktuelle Nachrichten</h2>
+
+	<!-- Scrolling Track -->
 	<div
-		bind:this={ticker}
-		class="flex gap-4 whitespace-nowrap will-change-transform transition-transform"
-		on:mouseover={() => (currentSpeed = slowSpeed)}
-		on:mouseleave={() => (currentSpeed = speed)}
+		class="flex whitespace-nowrap will-change-transform transition-transform"
+		bind:this={tickerContainer}
 	>
-		{#each posts as post, index}
-			<a
-				href={`/post/${post.slug}`}
-				class="inline-block text-white text-sm md:text-base font-medium px-4 transition-colors hover:text-white duration-200 cursor-pointer"
-				aria-label={`Zum Artikel: ${post.title}`}
-			>
-				{post.title}
-			</a>
-			{#if index < posts.length - 1}
+		<div class="flex gap-4" bind:this={tickerTrack}>
+			{#each posts as post}
+				<a
+					href={`/post/${post.slug}`}
+					class="inline-block text-white text-sm md:text-base font-medium px-4 transition-colors hover:text-white duration-200 cursor-pointer"
+					aria-label={`Zum Artikel: ${post.title}`}
+				>
+					{post.title}
+				</a>
 				<span class="text-white opacity-50 text-2xl"> • • • </span>
-			{/if}
-		{/each}
+			{/each}
+		</div>
 	</div>
 </div>

@@ -1,4 +1,4 @@
-import type { Post } from '../../types/posts.js';
+import type { Post } from '../../types/posts.ts';
 import { config } from '$lib/cannacoding.config.js';
 
 export async function GET({ fetch }) {
