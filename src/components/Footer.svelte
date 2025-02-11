@@ -135,7 +135,7 @@ mask-image: radial-gradient(circle at bottom, rgba(255,255,255,0.9) 70%, rgba(25
 			<!-- Über Mich -->
 			<div itemscope itemtype="https://schema.org/AboutPage">
 				<h2 class="text-3xl font-semibold mb-4">Über mich & Infos</h2>
-				<nav role="navigation" itemscope itemtype="https://schema.org/SiteNavigationElement">
+				<nav itemscope itemtype="https://schema.org/SiteNavigationElement">
 					<ul class="space-y-2">
 						{#each footerLinks.slice(4) as link}
 							<li>

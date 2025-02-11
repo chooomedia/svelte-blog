@@ -22,7 +22,6 @@
         flex justify-center items-center
         mt-16 md:mt-24 mb-20
     "
-	role="navigation"
 	aria-label="Pagination"
 	itemscope
 	itemtype="https://schema.org/SiteNavigationElement"

@@ -65,6 +65,7 @@
 		{:else}
 			<!-- Standard Dropdown -->
 			<div
+				aria-roledescription="dropdown"
 				transition:slide
 				class="
 					absolute top-full left-0 mt-2
