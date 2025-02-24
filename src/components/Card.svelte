@@ -102,7 +102,8 @@
 		<div class="flex-grow">
 			<h2
 				class="
-                    text-3xl
+                    lg:text-3xl
+                    text-5xl
                     font-semibold
                     text-primary-500 dark:text-gray-200
                     line-clamp-2

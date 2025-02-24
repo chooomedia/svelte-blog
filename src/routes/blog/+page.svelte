@@ -25,13 +25,23 @@
 		posts = await fetchPosts(page);
 		loading = false;
 	});
+
+	let faqs = [
+		{ question: 'Was ist Svelte?', answer: 'Svelte ist ein Frontend-Framework für Web-Apps.' },
+		{
+			question: 'Warum Svelte verwenden?',
+			answer: 'Svelte ist schneller und benötigt weniger Code.'
+		},
+		{
+			question: 'Unterstützt Svelte TypeScript?',
+			answer: 'Ja, Svelte unterstützt TypeScript out of the box.'
+		}
+	];
 </script>
 
 <section class="pt-16 px-4 md:px-8">
-	<h1 class="text-5xl font-bold text-primary-500">📢 Blog</h1>
-
 	<!-- Anzeige der Blog-Posts -->
 	<PostsContainer {posts} {loading} currentPage={page} />
 
-	<Faq />
+	<Faq {faqs} type="multiple" />
 </section>

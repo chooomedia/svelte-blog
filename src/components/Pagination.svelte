@@ -5,7 +5,7 @@
 
 	let currentPageVal: string | number | null = '1';
 	export let currentPage: number = 1;
-	export let totalPages: number = 5;
+	export let totalPages: number = 3;
 
 	const getUrl = (currentPage: number) => {
 		return `/page/${currentPage}`;

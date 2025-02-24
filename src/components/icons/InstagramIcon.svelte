@@ -1,6 +1,7 @@
 <script>
 	export let className = '';
 	export let title = '';
+	//Icons by https://lucide.dev/icons/menu
 </script>
 
 <svg

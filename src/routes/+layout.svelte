@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { beforeNavigate, afterNavigate } from '$app/navigation';
 	import '@fontsource-variable/comfortaa';
 	import Header from '../components/Header.svelte';
 	import { fade } from 'svelte/transition';
@@ -7,13 +8,16 @@
 	import Footer from '../components/Footer.svelte';
 	import '../app.css';
 	import Seo from '$lib/seo/Seo.svelte';
+	import Plant from '../components/PlantWrapper.svelte';
+	import PageHero from '../components/Page/PageHero.svelte';
+	import PagesContainer from '../components/PagesContainer.svelte';
 
 	import type { Post } from '../types/posts';
 	import fetchPosts from '../utils/fetchPosts';
+	import fetchPageBySlug from '../utils/fetchPageBySlug';
 
 	let posts: Post[] = [];
 	let loading = true;
-
 	let isDarkMode = false;
 
 	export let data: {
@@ -25,23 +29,38 @@
 		isPostPage: boolean;
 	};
 
-	// Fallback für `seoData`, falls undefined
-	let seoData = data.seoData || {
-		title: 'Fallback Titel',
-		description: 'Fallback Beschreibung',
-		keywords: [],
-		imgUrl: '',
-		imgAlt: ''
-	};
+	let pageData = data.pageData;
+	let seoData = data.seoData;
+	let currentRoute = '';
 
 	function toggleDarkMode() {
 		isDarkMode = !isDarkMode;
 		document.documentElement.classList.toggle('dark', isDarkMode);
 	}
 
-	onMount(async () => {
-		posts = [];
-		posts = await fetchPosts();
+	// Routenwechsel erkennen & Page-Daten aktualisieren
+	beforeNavigate(() => {
+		loading = true;
+	});
+
+	afterNavigate(async ({ to }) => {
+		if (!to) return;
+		currentRoute = to.url.pathname;
+
+		const slug = to.url.pathname === '/' ? null : to.url.pathname.split('/').pop();
+		pageData = slug ? await fetchPageBySlug(slug) : await fetchPageBySlug();
+
+		seoData = {
+			title: pageData?.title?.rendered || 'Fallback Titel',
+			description: pageData?.meta?.rank_math_description || 'Fallback Beschreibung',
+			keywords: Array.isArray(pageData?.meta?.rank_math_focus_keyword)
+				? pageData?.meta?.rank_math_focus_keyword
+				: pageData?.meta?.rank_math_focus_keyword
+					? [pageData?.meta?.rank_math_focus_keyword]
+					: [],
+			imgUrl: pageData?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '',
+			imgAlt: pageData?._embedded?.['wp:featuredmedia']?.[0]?.alt_text || ''
+		};
 		loading = false;
 	});
 </script>
@@ -55,11 +74,18 @@
 		imgAlt={seoData.imgAlt}
 	/>
 
-	<Header on:toggleDarkMode={toggleDarkMode} />
+	<!-- Header bleibt, aber wird aktualisiert -->
+	<Header {currentRoute} on:toggleDarkMode={toggleDarkMode} />
 
-	<main class="w-full md:w-full 2xl:max-w-[1140px] mx-auto" in:fade={{ delay: 100 }}>
-		<slot />
-	</main>
+	<PagesContainer>
+		<!-- Dynamisches PageHero -->
+		<PageHero page={{ title: seoData.title, meta_description: seoData.description }} />
+
+		<main class="w-full md:w-full 2xl:max-w-[1140px] mx-auto" in:fade={{ delay: 100 }}>
+			<Plant />
+			<slot />
+		</main>
+	</PagesContainer>
 
 	<section class="relative w-full m-0 p-0">
 		<Newsticker {posts} speed={80} pauseOnHover={true} />

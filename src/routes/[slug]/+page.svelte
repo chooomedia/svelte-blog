@@ -1,16 +1,24 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import PageHero from '../../components/page/PageHero.svelte';
+	import { afterNavigate } from '$app/navigation';
 	import PageBody from '../../components/page/PageBody.svelte';
 	import transformWordPressPage from '../../utils/transformWordPressPage';
+	import fetchPageBySlug from '../../utils/fetchPageBySlug';
 
 	export let data: any;
+	let page = data.page;
+	let transformedPage = transformWordPressPage(page);
 
-	const { page } = data;
-	const transformedPage = transformWordPressPage(page);
+	// Bei Routenwechsel die neue Seite laden
+	afterNavigate(async ({ to }) => {
+		if (to) {
+			const slug = to.url.pathname.split('/').pop();
+			page = await fetchPageBySlug(slug);
+			transformedPage = transformWordPressPage(page);
+		}
+	});
 </script>
 
-<section in:fade={{ delay: 500, duration: 500 }} out:fade>
-	<PageHero page={transformedPage} />
+<section class="pt-16" in:fade={{ delay: 500, duration: 500 }} out:fade={{ duration: 400 }}>
 	<PageBody content={transformedPage.content} />
 </section>

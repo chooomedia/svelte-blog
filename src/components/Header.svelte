@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { fade, slide } from 'svelte/transition';
-	import { theme, toggleTheme } from '../stores/theme';
+	import { toggleTheme } from '../stores/theme';
 	import Logo from './Logo.svelte';
 	import Input from './Input.svelte';
 	import SearchIcon from './icons/SearchIcon.svelte';
@@ -8,7 +7,6 @@
 	import Dropdown from './Dropdown.svelte';
 
 	let isSearchActive = false;
-	let isMobileMenuOpen = false;
 </script>
 
 <header
