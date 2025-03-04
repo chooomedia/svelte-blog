@@ -1,6 +1,6 @@
 import { config } from '$lib/cannacoding.config';
 import { Post } from '../../types/posts';
-import fetchAllPosts from '../../utils/fetchAllPosts';
+import fetchAllPosts from '../../utils/fetchAllposts';
 
 export async function GET() {
 	try {

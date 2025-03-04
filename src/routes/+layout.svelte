@@ -75,15 +75,8 @@
 	<!-- Header bleibt, aber wird aktualisiert -->
 	<Header {currentRoute} on:toggleDarkMode={toggleDarkMode} />
 	<PagesContainer>
-		{#if !data.isPostPage}
-			<PageHero
-				page={{
-					title: seoData.title,
-					meta_description: seoData.description
-				}}
-			/>
-			<CannabisPlant modelPath="/cannabis_plain.glb" backgroundColor="transparent" />
-		{/if}
+		<PageHero page={{ title: seoData.title, meta_description: seoData.description }} />
+		<CannabisPlant modelPath="/cannabis_plain.glb" backgroundColor="transparent" />
 
 		<main
 			class="w-full md:w-full 2xl:max-w-[1140px] mx-auto z-10 relative"
