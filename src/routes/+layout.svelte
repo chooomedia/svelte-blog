@@ -8,13 +8,12 @@
 	import Footer from '../components/Footer.svelte';
 	import '../app.css';
 	import Seo from '$lib/seo/Seo.svelte';
-	import Plant from '../components/PlantWrapper.svelte';
 	import PageHero from '../components/Page/PageHero.svelte';
 	import PagesContainer from '../components/PagesContainer.svelte';
-
 	import type { Post } from '../types/posts';
-	import fetchPosts from '../utils/fetchPosts';
 	import fetchPageBySlug from '../utils/fetchPageBySlug';
+
+	import CannabisPlant from '../components/model/CannabisPlant.svelte';
 
 	let posts: Post[] = [];
 	let loading = true;
@@ -73,16 +72,23 @@
 		imgUrl={seoData.imgUrl}
 		imgAlt={seoData.imgAlt}
 	/>
-
 	<!-- Header bleibt, aber wird aktualisiert -->
 	<Header {currentRoute} on:toggleDarkMode={toggleDarkMode} />
-
 	<PagesContainer>
-		<!-- Dynamisches PageHero -->
-		<PageHero page={{ title: seoData.title, meta_description: seoData.description }} />
+		{#if !data.isPostPage}
+			<PageHero
+				page={{
+					title: seoData.title,
+					meta_description: seoData.description
+				}}
+			/>
+			<CannabisPlant modelPath="/cannabis_plain.glb" backgroundColor="transparent" />
+		{/if}
 
-		<main class="w-full md:w-full 2xl:max-w-[1140px] mx-auto" in:fade={{ delay: 100 }}>
-			<Plant />
+		<main
+			class="w-full md:w-full 2xl:max-w-[1140px] mx-auto z-10 relative"
+			in:fade={{ delay: 100 }}
+		>
 			<slot />
 		</main>
 	</PagesContainer>

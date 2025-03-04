@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import PostsContainer from '../components/PostsContainer.svelte';
-	import PlantWrapper from '../components/PlantWrapper.svelte';
 
 	import type { Post } from '../types/posts';
 	import fetchPosts from '../utils/fetchPosts';

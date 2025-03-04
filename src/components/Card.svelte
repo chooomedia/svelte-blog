@@ -33,7 +33,7 @@
             relative
             flex flex-col
             h-full
-            bg-surface-100/50 dark:bg-surface-800/30
+            bg-surface-100/80 backdrop-blur-md dark:bg-surface-800/80
             cursor-pointer
             gap-4
             p-5

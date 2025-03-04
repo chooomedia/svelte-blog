@@ -31,7 +31,7 @@
 <JsonLd {structuredData} />
 
 <div
-	class="relative w-full lg:h-[60vh] h-[50vh] flex items-center justify-center text-white text-center px-6 rounded-b-[2.5rem] overflow-hidden"
+	class="relative w-full lg:h-[80vh] h-[50vh] flex items-center justify-center text-white text-center px-6 rounded-b-[2.5rem] overflow-hidden"
 	in:fade={{ duration: 600 }}
 >
 	<div

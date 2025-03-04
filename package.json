@@ -46,6 +46,7 @@
         "@fontsource-variable/comfortaa": "^5.1.1",
         "@threlte/core": "^6.1.1",
         "@threlte/extras": "^6.0.0",
+        "@threlte/gltf": "^3.0.0",
         "dompurify": "^3.2.4",
         "gsap": "^3.12.7",
         "svelte-cubed": "^0.2.1",
